@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galatea: Master Kitchen Rush | Experiencias Digitales de Alta Cocina</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Encabezado / HUD de la Cocina Digital -->
+    <header>
+        <div class="brand">
+            <span class="chef-hat">👨‍🍳</span>
+            <span class="brand-title">GALATEA KITCHEN</span>
+            <span id="phase-indicator" class="phase-pill phase1">Fase 1: Cocina Tradicional</span>
+        </div>
+
+        <div class="hud-stats">
+            <div class="stat-box">
+                <div class="stat-label">Tiempo</div>
+                <div id="timer-val" class="stat-val">30s</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Puntaje</div>
+                <div id="score-val" class="stat-val">0</div>
+            </div>
+            <button id="sound-toggle" class="sound-toggle-btn" title="Alternar Sonido">🔊</button>
+        </div>
+    </header>
+
+    <!-- Área Principal de Juego -->
+    <main>
+        <!-- Riel de Comandas / Pedidos Colgantes de Restaurante -->
+        <section class="ticket-rail-wrapper">
+            <div class="metal-bar">
+                <div class="metal-clip"></div>
+                <div class="metal-clip"></div>
+                <div class="metal-clip"></div>
+                <div class="metal-clip"></div>
+            </div>
+            <div id="orders-track" class="orders-track">
+                <!-- Se inyectan las comandas estilo ticket de comanda de cocina -->
+            </div>
+        </section>
+
+        <!-- Zona de Cocina / Estaciones de Trabajo -->
+        <section class="kitchen-arena">
+            <!-- Mesa de Armado / Tabla de Picar del Chef -->
+            <div class="prep-board">
+                <div class="station-header">
+                    <span>🥩 Tabla de Armado y Montaje</span>
+                    <span style="font-size: 0.75rem; color: var(--accent-gold);">Comanda Activa</span>
+                </div>
+                <div class="assembly-area">
+                    <div class="cutting-board">
+                        <div class="dish-icon-wrap">
+                            <div class="steam-particle">♨️</div>
+                            <div class="dish-icon">🍽️</div>
+                        </div>
+                        <div id="current-dish-title" class="current-recipe-title">Esperando comanda...</div>
+                        <div id="current-dish-desc" class="current-recipe-desc">Selecciona un ticket superior para preparar.</div>
+                        
+                        <div id="plate-ingredients" class="plate-ingredients">
+                            <!-- Slots requeridos -->
+                        </div>
+                    </div>
+
+                    <button id="serve-btn" class="serve-btn" disabled>
+                        🛎️ ¡Servir Experiencia Digital!
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panel de Ingredientes y Despensa: Cambia según la Fase -->
+            <div id="inventory-container">
+                <!-- FASE 1: Cocina Caótica Tradicional (Ingredientes rebeldes que se mueven y escapan) -->
+                <div id="chaotic-kitchen" class="chaotic-kitchen-panel">
+                    <div class="chaotic-header">
+                        <strong style="color: #f87171; font-size: 0.95rem;">🌪️ Cocina Caótica (Sin Galatea)</strong>
+                        <span style="font-size: 0.75rem; color: #fca5a5;">Cada chef compra por su cuenta</span>
+                    </div>
+                    <div class="chaos-alert-banner">
+                        <span>⚠️ ¡Los ingredientes están desordenados, rebotan y huyen! ¡Atrápalos con varios clics!</span>
+                    </div>
+                    <div id="chaotic-arena" class="chaotic-arena">
+                        <!-- Se inyectan los ingredientes en movimiento caótico -->
+                    </div>
+                </div>
+
+                <!-- FASE 2: El Gran Refrigerador Inteligente Galatea (+400 Capacidades) -->
+                <div id="fridge-container" class="fridge-container hidden">
+                    <div class="fridge-unit" id="fridge-unit">
+                        <!-- Puertas dobles de acero inoxidable -->
+                        <div class="fridge-door fridge-door-left">
+                            <div class="fridge-door-screen">
+                                <div class="fridge-temp">-4°C ❄️</div>
+                                <div class="fridge-sub">GALATEA SMART VAULT</div>
+                            </div>
+                            <div class="fridge-handle"></div>
+                        </div>
+                        <div class="fridge-door fridge-door-right">
+                            <div class="fridge-door-screen">
+                                <div class="fridge-temp">400+ 🚀</div>
+                                <div class="fridge-sub">CAPACIDADES LISTAS</div>
+                            </div>
+                            <div class="fridge-handle"></div>
+                        </div>
+
+                        <!-- Efecto de niebla de escarcha al abrir -->
+                        <div class="fridge-frost-mist"></div>
+
+                        <!-- Interior iluminado y ordenado del refrigerador -->
+                        <div class="fridge-interior">
+                            <div class="fridge-shelf-banner">
+                                <span>🧊 Despensa Centralizada Galatea</span>
+                                <span>⚡ 1 Clic = Integración Instantánea</span>
+                            </div>
+                            <div id="pantry-grid" class="pantry-grid">
+                                <!-- Se inyectan los 8 ingredientes listos para usar -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL 1: BIENVENIDA & INTRODUCCIÓN AL PITCH -->
+    <div id="intro-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;">👨‍🍳 ✨ 🍽️</div>
+            <h1 class="modal-title">Bienvenidos a <span class="highlight-gold">Galatea</span></h1>
+            <p class="modal-text">
+                En Galatea creemos que crear experiencias digitales debe funcionar igual que un 
+                <span class="highlight-blue">restaurante de alta cocina</span>: con ingredientes de máxima calidad, 
+                procesos estandarizados y un equipo coordinado.
+            </p>
+
+            <div class="principles-banner">
+                <div class="principle-box">
+                    <div class="principle-icon">🔄</div>
+                    <div class="principle-title">Reutilización</div>
+                </div>
+                <div class="principle-box">
+                    <div class="principle-icon">⭐</div>
+                    <div class="principle-title">Excelencia</div>
+                </div>
+                <div class="principle-box">
+                    <div class="principle-icon">🌱</div>
+                    <div class="principle-title">Sostenibilidad</div>
+                </div>
+            </div>
+
+            <p class="modal-text" style="font-size: 0.95rem; color: #94a3b8;">
+                <strong>Tu Reto:</strong><br>
+                1️⃣ En la <strong>Fase 1</strong> vivirás el caos del pasado: ingredientes desordenados que se mueven, desaparecen y huyen de ti.<br>
+                2️⃣ En la <strong>Fase 2</strong> abriremos el <strong>Refrigerador Inteligente Galatea</strong> con más de 400 capacidades listas al instante.
+            </p>
+
+            <button id="start-btn" class="primary-btn">🔥 ¡Entrar a la Cocina y Desafiar el Caos!</button>
+        </div>
+    </div>
+
+    <!-- MODAL 2: TRANSICIÓN A FASE 2 (EL CLÍMAX DEL PITCH) -->
+    <div id="transition-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🧊 🚪 ⚡</div>
+            <h2 class="modal-title" style="color: var(--accent-gold);">¿Agotador perseguir ingredientes?</h2>
+            <p class="modal-text">
+                Así era antes: cada equipo comprando sus propios ingredientes, duplicando esfuerzos y perdiendo velocidad.
+                <br><br>
+                <em style="color: #6ee7b7; font-size: 1.1rem; display: block; padding: 0.8rem; background: rgba(16, 185, 129, 0.1); border-radius: 10px;">
+                    "Así como un restaurante profesional cuenta con una despensa centralizada para crear platos únicos sin desperdiciar recursos, 
+                    <strong>Galatea ha construido durante 4 años una despensa digital con más de 400 capacidades listas para consumir.</strong>"
+                </em>
+            </p>
+
+            <button id="start-phase2-btn" class="primary-btn" style="background: linear-gradient(135deg, #00e5ff, #0072ff);">
+                🧊 ¡Abrir Refrigerador Galatea y Cocinar a Toda Velocidad!
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL 3: PANTALLA FINAL & RANKING DEL STAND -->
+    <div id="game-over-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div style="font-size: 3rem; margin-bottom: 0.4rem;">🏆 ⭐ 🍽️</div>
+            <h2 class="modal-title">¡Turno de Cocina Concluido!</h2>
+            <div style="font-size: 2.4rem; font-weight: 900; color: var(--accent-gold); margin-bottom: 0.5rem;">
+                <span id="final-score-val">0</span> pts
+            </div>
+
+            <p class="modal-text" style="margin-bottom: 0.8rem; font-size: 0.95rem;">
+                Comparativa de impacto: La vieja cocina aislada vs. La Despensa Galatea
+            </p>
+
+            <!-- Comparativa Visual -->
+            <div class="comparison-grid">
+                <div class="comparison-card bad">
+                    <h3 style="color: #fca5a5; font-size: 0.9rem; margin-bottom: 0.75rem;">🔴 Sin Galatea (Caótico)</h3>
+                    <div class="comp-metric">
+                        <div class="comp-label">Canales Entregados:</div>
+                        <div id="metric-p1-delivered" class="comp-val red">0</div>
+                    </div>
+                    <div class="comp-metric">
+                        <div class="comp-label">Tiempo por Entrega:</div>
+                        <div id="metric-p1-time" class="comp-val red">--</div>
+                    </div>
+                    <div class="comp-metric">
+                        <div class="comp-label">Desperdicio de Recursos:</div>
+                        <div id="metric-p1-waste" class="comp-val red">Alto</div>
+                    </div>
+                </div>
+
+                <div class="comparison-card good">
+                    <h3 style="color: #6ee7b7; font-size: 0.9rem; margin-bottom: 0.75rem;">🟢 Despensa Galatea</h3>
+                    <div class="comp-metric">
+                        <div class="comp-label">Canales Entregados:</div>
+                        <div id="metric-p2-delivered" class="comp-val green">0</div>
+                    </div>
+                    <div class="comp-metric">
+                        <div class="comp-label">Tiempo por Entrega:</div>
+                        <div id="metric-p2-time" class="comp-val green">--</div>
+                    </div>
+                    <div class="comp-metric">
+                        <div class="comp-label">Desperdicio de Recursos:</div>
+                        <div id="metric-p2-waste" class="comp-val green">0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registro en el Ranking del Stand de la Feria -->
+            <div class="player-input-wrap">
+                <input id="player-name-input" class="player-input" type="text" placeholder="Tu nombre / Alias para el Stand" maxlength="20">
+                <button id="save-score-btn" class="primary-btn" style="width: auto; padding: 0.75rem 1.4rem;">Guardar</button>
+            </div>
+
+            <div class="leaderboard-container">
+                <div style="font-size: 0.8rem; font-weight: 800; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">
+                    🌟 Top Chefs del Stand (Feria de Tecnología)
+                </div>
+                <div id="leaderboard-list">
+                    <!-- Registros -->
+                </div>
+            </div>
+
+            <button id="restart-btn" class="primary-btn" style="margin-top: 1rem;">🔄 Jugar Otra Partida</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="audio.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
