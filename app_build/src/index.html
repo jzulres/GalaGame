@@ -88,13 +88,13 @@
                     </div>
                 </div>
 
-                <!-- FASE 2: El Gran Refrigerador Inteligente Galatea (+400 Capacidades) -->
+                <!-- FASE 2: La Gran Despensa Centralizada Galatea (+400 Capacidades) -->
                 <div id="fridge-container" class="fridge-container hidden">
                     <div class="fridge-unit" id="fridge-unit">
                         <!-- Puertas dobles de acero inoxidable -->
                         <div class="fridge-door fridge-door-left">
                             <div class="fridge-door-screen">
-                                <div class="fridge-temp">-4°C ❄️</div>
+                                <div class="fridge-temp">ALTA COCINA ✨</div>
                                 <div class="fridge-sub">GALATEA SMART VAULT</div>
                             </div>
                             <div class="fridge-handle"></div>
@@ -107,13 +107,13 @@
                             <div class="fridge-handle"></div>
                         </div>
 
-                        <!-- Efecto de niebla de escarcha al abrir -->
+                        <!-- Efecto de brillo de apertura de puertas -->
                         <div class="fridge-frost-mist"></div>
 
-                        <!-- Interior iluminado y ordenado del refrigerador -->
+                        <!-- Interior iluminado y ordenado de la Despensa -->
                         <div class="fridge-interior">
                             <div class="fridge-shelf-banner">
-                                <span>🧊 Despensa Centralizada Galatea</span>
+                                <span>✨ Despensa Centralizada Galatea</span>
                                 <span>⚡ 1 Clic = Integración Instantánea</span>
                             </div>
                             <div id="pantry-grid" class="pantry-grid">
@@ -154,18 +154,112 @@
 
             <p class="modal-text" style="font-size: 0.95rem; color: #94a3b8;">
                 <strong>Tu Reto:</strong><br>
-                1️⃣ En la <strong>Fase 1</strong> vivirás el caos del pasado: ingredientes desordenados que se mueven, desaparecen y huyen de ti.<br>
-                2️⃣ En la <strong>Fase 2</strong> abriremos el <strong>Refrigerador Inteligente Galatea</strong> con más de 400 capacidades listas al instante.
+                1️⃣ En la <strong>Fase 1</strong> vivirás el caos del pasado: componentes desordenados que se mueven y huyen de ti.<br>
+                2️⃣ En la <strong>Fase 2</strong> abriremos la <strong>Despensa Centralizada Galatea</strong> con más de 400 capacidades listas al instante.
             </p>
 
-            <button id="start-btn" class="primary-btn">🔥 ¡Entrar a la Cocina y Desafiar el Caos!</button>
+            <button id="open-tutorial-btn" class="primary-btn">📖 ¿Cómo Jugar? (Tutorial en 3 Pasos)</button>
+            <button id="quick-start-btn" class="quick-start-btn">⚡ Iniciar Directamente</button>
+        </div>
+    </div>
+
+    <!-- MODAL 1.5: TUTORIAL INTERACTIVO (3 PASOS) -->
+    <div id="tutorial-modal" class="modal-overlay hidden">
+        <div class="modal-content tutorial-content">
+            <div class="tutorial-header">
+                <h2 class="modal-title" style="font-size: 1.7rem; color: var(--accent-gold);">📖 Cómo Jugar en Galatea Kitchen</h2>
+                <p class="modal-text" style="font-size: 0.92rem; margin-bottom: 0.9rem;">Domina la cocina digital en 3 sencillos pasos:</p>
+            </div>
+
+            <!-- Indicador de pasos / Tabs -->
+            <div class="tutorial-tabs">
+                <button class="tut-tab active" data-step="1">1. Riel de Comandas</button>
+                <button class="tut-tab" data-step="2">2. Despensa</button>
+                <button class="tut-tab" data-step="3">3. Despacho & Combo</button>
+            </div>
+
+            <!-- Paso 1 -->
+            <div id="tut-step-1" class="tut-step-panel active">
+                <div class="tut-badge">Paso 1 de 3</div>
+                <h3 class="tut-title">📋 Observa la comanda en el riel superior</h3>
+                <p class="tut-desc">
+                    En la barra superior recibirás comandas en tiempo real. 
+                    Cada comanda indica el <strong>producto solicitado</strong>, los <strong>puntos otorgados</strong> y los <strong>ingredientes necesarios</strong>.
+                </p>
+                <div class="tut-interactive-box">
+                    <div class="tut-mock-ticket">
+                        <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:0.95rem; color:var(--accent-gold);">
+                            <span>📱 App Móvil de Créditos</span>
+                            <span style="color:var(--accent-green);">+150 pts</span>
+                        </div>
+                        <div style="font-size:0.75rem; color:#94a3b8; margin: 0.35rem 0;">Tiempo comanda: 30s</div>
+                        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:0.4rem;">
+                            <span class="ing-tag fulfilled">🔐 Auth & Biometría</span>
+                            <span class="ing-tag fulfilled">💳 Pasarela de Pagos</span>
+                            <span class="ing-tag">🎨 UI Kit Accesible</span>
+                        </div>
+                    </div>
+                    <span class="tut-hint">💡 Consejo: Selecciona la comanda que quieras preparar primero si hay varias activas.</span>
+                </div>
+            </div>
+
+            <!-- Paso 2 -->
+            <div id="tut-step-2" class="tut-step-panel hidden">
+                <div class="tut-badge">Paso 2 de 3</div>
+                <h3 class="tut-title">🥑 Elige los ingredientes necesarios en la despensa</h3>
+                <p class="tut-desc">
+                    Selecciona los ingredientes requeridos para montarlos en la mesa de armado.<br>
+                    • En <strong>Fase 1 (Caos)</strong>: persigue los componentes rebeldes con varios clics.<br>
+                    • En <strong>Fase 2 (Galatea)</strong>: disponibles al instante en la Despensa con un solo clic.
+                </p>
+                <div class="tut-interactive-box">
+                    <div class="tut-pantry-demo">
+                        <button class="tut-demo-ing" id="tut-demo-btn-1">🔐 Auth & Biometría</button>
+                        <button class="tut-demo-ing" id="tut-demo-btn-2">💳 Pasarela de Pagos</button>
+                        <button class="tut-demo-ing" id="tut-demo-btn-3">🎨 UI Kit Accesible</button>
+                    </div>
+                    <div class="tut-demo-plate">
+                        <span style="font-size:0.8rem; color:var(--accent-gold); font-weight:bold;">🍽️ Plato de Demostración:</span>
+                        <div id="tut-plate-slots" class="tut-plate-slots">
+                            <span class="plate-slot">Haz clic en los ingredientes de arriba para probar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 3 -->
+            <div id="tut-step-3" class="tut-step-panel hidden">
+                <div class="tut-badge">Paso 3 de 3</div>
+                <h3 class="tut-title">🚀 Presiona "Despachar" y multiplica tu puntuación</h3>
+                <p class="tut-desc">
+                    Cuando tu plato tenga todos los componentes requeridos, el botón <strong>Despachar</strong> se activará. ¡Sírvelo rápido para acumular multiplicadores de <strong>Combo (x2, x3, x4)</strong>!
+                </p>
+                <div class="tut-interactive-box">
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:0.75rem;">
+                        <button id="tut-test-serve-btn" class="primary-btn" style="background: linear-gradient(135deg, #10b981, #059669); max-width:280px; width:100%;">
+                            🛎️ ¡Probar Botón Despachar!
+                        </button>
+                        <div id="tut-serve-feedback" style="font-size:0.95rem; font-weight:800; color:var(--accent-blue); min-height:24px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de navegación del Tutorial -->
+            <div class="tutorial-actions">
+                <button id="tut-back-menu-btn" class="tut-btn-text">← Volver al Menú</button>
+                <div style="display:flex; gap:0.6rem;">
+                    <button id="tut-prev-step-btn" class="tut-btn-secondary hidden">Anterior</button>
+                    <button id="tut-next-step-btn" class="tut-btn-secondary">Siguiente Paso →</button>
+                    <button id="tut-start-game-btn" class="primary-btn hidden" style="padding: 0.65rem 1.4rem;">🔥 ¡Iniciar Partida!</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- MODAL 2: TRANSICIÓN A FASE 2 (EL CLÍMAX DEL PITCH) -->
     <div id="transition-modal" class="modal-overlay hidden">
         <div class="modal-content">
-            <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🧊 🚪 ⚡</div>
+            <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">✨ 🚪 ⚡</div>
             <h2 class="modal-title" style="color: var(--accent-gold);">¿Agotador perseguir ingredientes?</h2>
             <p class="modal-text">
                 Así era antes: cada equipo comprando sus propios ingredientes, duplicando esfuerzos y perdiendo velocidad.
@@ -177,7 +271,7 @@
             </p>
 
             <button id="start-phase2-btn" class="primary-btn" style="background: linear-gradient(135deg, #00e5ff, #0072ff);">
-                🧊 ¡Abrir Refrigerador Galatea y Cocinar a Toda Velocidad!
+                ⚡ ¡Abrir Despensa Galatea y Cocinar a Toda Velocidad!
             </button>
         </div>
     </div>
@@ -248,6 +342,9 @@
             <button id="restart-btn" class="primary-btn" style="margin-top: 1rem;">🔄 Jugar Otra Partida</button>
         </div>
     </div>
+
+    <!-- Contenedor para toasts flotantes apilados -->
+    <div id="floating-toast-container" class="floating-toast-container" aria-live="polite"></div>
 
     <!-- Scripts -->
     <script src="audio.js"></script>

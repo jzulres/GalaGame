@@ -107,15 +107,23 @@ class Game {
 
         // Modales
         this.introModal = document.getElementById('intro-modal');
+        this.tutorialModal = document.getElementById('tutorial-modal');
         this.transitionModal = document.getElementById('transition-modal');
         this.gameOverModal = document.getElementById('game-over-modal');
 
-        // Botones de acción
-        document.getElementById('start-btn').addEventListener('click', () => this.startGame());
+        // Botones de acción principales
+        const openTutBtn = document.getElementById('open-tutorial-btn');
+        if (openTutBtn) openTutBtn.addEventListener('click', () => this.openTutorial());
+        const quickStartBtn = document.getElementById('quick-start-btn');
+        if (quickStartBtn) quickStartBtn.addEventListener('click', () => this.startGame());
+
         document.getElementById('start-phase2-btn').addEventListener('click', () => this.startPhase2());
         document.getElementById('restart-btn').addEventListener('click', () => this.resetGame());
         document.getElementById('save-score-btn').addEventListener('click', () => this.saveScore());
         this.serveBtn.addEventListener('click', () => this.serveCurrentDish());
+
+        // Configuración del Tutorial Interactivo
+        this.initTutorialEvents();
 
         // Sonido
         document.getElementById('sound-toggle').addEventListener('click', (e) => {
@@ -126,10 +134,138 @@ class Game {
         this.renderPantryItems();
     }
 
+    initTutorialEvents() {
+        this.currentTutStep = 1;
+        this.tutDemoIngredients = new Set();
+
+        // Tabs del tutorial
+        document.querySelectorAll('.tut-tab').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                const step = parseInt(e.currentTarget.dataset.step);
+                this.setTutorialStep(step);
+            });
+        });
+
+        // Botones de navegación
+        document.getElementById('tut-next-step-btn').addEventListener('click', () => {
+            this.setTutorialStep(this.currentTutStep + 1);
+        });
+
+        document.getElementById('tut-prev-step-btn').addEventListener('click', () => {
+            this.setTutorialStep(this.currentTutStep - 1);
+        });
+
+        document.getElementById('tut-back-menu-btn').addEventListener('click', () => {
+            window.soundFX.playClick();
+            this.tutorialModal.classList.add('hidden');
+            this.introModal.classList.remove('hidden');
+        });
+
+        document.getElementById('tut-start-game-btn').addEventListener('click', () => {
+            this.startGame();
+        });
+
+        // Interactividad Paso 2: Plato de pruebas
+        const demoItems = [
+            { btnId: 'tut-demo-btn-1', id: 'auth', name: '🔐 Auth & Biometría' },
+            { btnId: 'tut-demo-btn-2', id: 'pay', name: '💳 Pasarela de Pagos' },
+            { btnId: 'tut-demo-btn-3', id: 'ui', name: '🎨 UI Kit Accesible' }
+        ];
+
+        demoItems.forEach(item => {
+            const btn = document.getElementById(item.btnId);
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    window.soundFX.playClick();
+                    if (this.tutDemoIngredients.has(item.name)) {
+                        this.tutDemoIngredients.delete(item.name);
+                        btn.classList.remove('selected');
+                    } else {
+                        this.tutDemoIngredients.add(item.name);
+                        btn.classList.add('selected');
+                    }
+                    this.renderTutDemoPlate();
+                });
+            }
+        });
+
+        // Interactividad Paso 3: Probar botón despachar
+        const testServeBtn = document.getElementById('tut-test-serve-btn');
+        if (testServeBtn) {
+            testServeBtn.addEventListener('click', () => {
+                window.soundFX.playServe();
+                window.soundFX.playCombo();
+                const feedbackEl = document.getElementById('tut-serve-feedback');
+                if (feedbackEl) {
+                    feedbackEl.textContent = '🎉 ¡Despacho exitoso! +150 pts (¡Combo x2 Activado!)';
+                    feedbackEl.style.animation = 'none';
+                    feedbackEl.offsetHeight; // trigger reflow
+                    feedbackEl.style.animation = 'toastPopIn 0.3s ease';
+                }
+            });
+        }
+    }
+
+    renderTutDemoPlate() {
+        const container = document.getElementById('tut-plate-slots');
+        if (!container) return;
+
+        if (this.tutDemoIngredients.size === 0) {
+            container.innerHTML = '<span class="plate-slot">Haz clic en los ingredientes de arriba para probar</span>';
+            return;
+        }
+
+        container.innerHTML = '';
+        this.tutDemoIngredients.forEach(ingName => {
+            const slot = document.createElement('div');
+            slot.className = 'plate-slot ready';
+            slot.innerHTML = `<span>${ingName}</span> <span>✓</span>`;
+            container.appendChild(slot);
+        });
+    }
+
+    openTutorial() {
+        window.soundFX.init();
+        window.soundFX.playClick();
+        this.introModal.classList.add('hidden');
+        this.tutorialModal.classList.remove('hidden');
+        this.setTutorialStep(1);
+    }
+
+    setTutorialStep(step) {
+        if (step < 1 || step > 3) return;
+        window.soundFX.playClick();
+        this.currentTutStep = step;
+
+        // Actualizar tabs
+        document.querySelectorAll('.tut-tab').forEach(tab => {
+            tab.classList.toggle('active', parseInt(tab.dataset.step) === step);
+        });
+
+        // Mostrar panel correspondiente
+        for (let i = 1; i <= 3; i++) {
+            const panel = document.getElementById(`tut-step-${i}`);
+            if (panel) {
+                panel.classList.toggle('hidden', i !== step);
+                panel.classList.toggle('active', i === step);
+            }
+        }
+
+        // Controlar botones de navegación
+        const prevBtn = document.getElementById('tut-prev-step-btn');
+        const nextBtn = document.getElementById('tut-next-step-btn');
+        const startBtn = document.getElementById('tut-start-game-btn');
+
+        if (prevBtn) prevBtn.classList.toggle('hidden', step === 1);
+        if (nextBtn) nextBtn.classList.toggle('hidden', step === 3);
+        if (startBtn) startBtn.classList.toggle('hidden', step !== 3);
+    }
+
     startGame() {
         window.soundFX.init();
         window.soundFX.playClick();
         this.introModal.classList.add('hidden');
+        this.tutorialModal.classList.add('hidden');
         this.phase = 1;
         this.score = 0;
         this.stats = {
@@ -456,14 +592,33 @@ class Game {
     }
 
     showFloatingText(text, color = '#fff') {
-        const span = document.createElement('div');
-        span.className = 'floating-feedback';
-        span.textContent = text;
-        span.style.color = color;
-        span.style.left = '50%';
-        span.style.top = '45%';
-        document.body.appendChild(span);
-        setTimeout(() => span.remove(), 1000);
+        let container = document.getElementById('floating-toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'floating-toast-container';
+            container.className = 'floating-toast-container';
+            document.body.appendChild(container);
+        }
+
+        const toast = document.createElement('div');
+        toast.className = 'floating-feedback-toast';
+        toast.textContent = text;
+        toast.style.color = color;
+        toast.style.borderColor = color ? `${color}66` : 'rgba(255, 255, 255, 0.18)';
+        toast.style.boxShadow = color ? `0 8px 24px rgba(0, 0, 0, 0.5), 0 0 14px ${color}44` : '0 8px 24px rgba(0, 0, 0, 0.5)';
+
+        // Evitar saturación excesiva manteniendo máximo 4 mensajes simultáneos
+        while (container.children.length >= 4) {
+            container.firstElementChild.remove();
+        }
+
+        container.appendChild(toast);
+
+        setTimeout(() => {
+            if (toast.parentElement) {
+                toast.remove();
+            }
+        }, 1500);
     }
 
     updateHUD() {
@@ -484,11 +639,11 @@ class Game {
         this.phaseIndicatorEl.textContent = 'Fase 2: Despensa Galatea (+400 Capacidades)';
         this.phaseIndicatorEl.className = 'phase-pill phase2';
 
-        // Ocultar cocina caótica y mostrar contenedor del refrigerador
+        // Ocultar cocina caótica y mostrar contenedor de la Despensa
         this.chaoticKitchenEl.classList.add('hidden');
         this.fridgeContainerEl.classList.remove('hidden');
 
-        // Animación dramática de apertura de puertas del refrigerador
+        // Animación de apertura de compuertas de la Despensa
         setTimeout(() => {
             window.soundFX.playFridgeDoor();
             if (this.fridgeUnitEl) {
