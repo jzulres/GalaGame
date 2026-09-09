@@ -50,7 +50,7 @@
   2. *Paso 2*: Elige los ingredientes necesarios en la despensa.
   3. *Paso 3*: Presiona "Despachar" para sumar puntos y mantener el combo.
 - **Botón de cerrar**: Permite volver al menú o iniciar la partida directamente.
-- Este tutorial debe de aparecer despues del popUp de bienvenida y antes de iniciar la partida.
+- **Funcionamiento** Este tutorial debe de aparecer despues del popUp de bienvenida y antes de iniciar la partida, es necesario que el portal de bienvenida directamente tenga un boton para el tutorial y en el tutorial despues de ver cada paso si permite aplicar el juego .
 
 ---
 
