@@ -2,58 +2,84 @@
 // Experiencia interactiva de alta cocina y despensa centralizada
 
 const INGREDIENTS = {
-    auth_sso: { id: 'auth_sso', name: 'Auth & Biometría', icon: '🔐', cat: 'Seguridad' },
-    pay_gateway: { id: 'pay_gateway', name: 'Pasarela de Pagos', icon: '💳', cat: 'Transaccional' },
-    push_notify: { id: 'push_notify', name: 'Notificaciones', icon: '🔔', cat: 'Engagement' },
-    ui_components: { id: 'ui_components', name: 'UI Kit Accesible', icon: '🎨', cat: 'Experiencia' },
-    analytics: { id: 'analytics', name: 'Telemetría & Datos', icon: '📊', cat: 'Métricas' },
-    db_sync: { id: 'db_sync', name: 'Sincronización RealTime', icon: '⚡', cat: 'Core' },
-    doc_sign: { id: 'doc_sign', name: 'Firma Digital', icon: '✍️', cat: 'LegalTech' },
-    ai_recommender: { id: 'ai_recommender', name: 'Asistente IA / Chat', icon: '🤖', cat: 'Innovación' }
+    design_system: { id: 'design_system', name: 'Sistema de diseño', icon: '🎨', cat: 'Frontend' },
+    mobile_widgets: { id: 'mobile_widgets', name: 'Widgets mobile', icon: '📱', cat: 'Mobile' },
+    tagging: { id: 'tagging', name: 'Tagueo', icon: '🏷️', cat: 'Analítica' },
+    qr_reader: { id: 'qr_reader', name: 'Lectura de QR', icon: '📷', cat: 'Mobile' },
+    zeroheight: { id: 'zeroheight', name: 'ZeroHeight', icon: '📐', cat: 'Diseño' },
+    lowcode: { id: 'lowcode', name: 'LowCode', icon: '🧩', cat: 'Desarrollo' },
+    mcp_bds: { id: 'mcp_bds', name: 'MCP - BDS', icon: '🔌', cat: 'Integración' },
+    macd: { id: 'macd', name: 'MACD', icon: '⚙️', cat: 'Operaciones' },
+    info_model: { id: 'info_model', name: 'Modelo información', icon: '🗂️', cat: 'Datos' },
+    digital_exp: { id: 'digital_exp', name: 'Expériencias digitales', icon: '✨', cat: 'Experiencia' },
+    metrics: { id: 'metrics', name: 'Metricas', icon: '📊', cat: 'Telemetría' },
+    support: { id: 'support', name: 'Soporte', icon: '🎧', cat: 'Soporte' },
+    federation: { id: 'federation', name: 'Federación', icon: '🌐', cat: 'Arquitectura' },
+    security_filters: { id: 'security_filters', name: 'Security Filters', icon: '🛡️', cat: 'Seguridad' },
+    auth_widget: { id: 'auth_widget', name: 'Widget de Autenticación', icon: '🔐', cat: 'Seguridad' },
+    dist_routers: { id: 'dist_routers', name: 'Distribution Routers', icon: '🔀', cat: 'Infraestructura' },
+    async_dataflow: { id: 'async_dataflow', name: 'Async Data Flow', icon: '⚡', cat: 'Integración' },
+    batch_loading: { id: 'batch_loading', name: 'Carga de lotes', icon: '📦', cat: 'Transaccional' },
+    topes: { id: 'topes', name: 'Topes', icon: '🛑', cat: 'Reglas de Negocio' },
+    backend_driven_ui: { id: 'backend_driven_ui', name: 'BackEndDrivenUI', icon: '🎛️', cat: 'Arquitectura UI' }
 };
 
 const RECIPES = [
     {
-        id: 'app_creditos',
-        name: 'App Móvil de Créditos',
-        desc: 'Experiencia transaccional ágil y confiable',
-        ingredients: ['auth_sso', 'pay_gateway', 'ui_components'],
+        id: 'app_movil_bdui',
+        name: 'App Móvil Dinámica (BDUI)',
+        desc: 'Canal móvil de alto rendimiento con renderizado desde backend y autenticación',
+        ingredients: ['mobile_widgets', 'backend_driven_ui', 'auth_widget', 'qr_reader'],
+        points: 210
+    },
+    {
+        id: 'portal_digital',
+        name: 'Portal de Expériencias Digitales',
+        desc: 'Canal corporativo omnicanal con sistema de diseño unificado y ZeroHeight',
+        ingredients: ['digital_exp', 'design_system', 'zeroheight'],
         points: 150
     },
     {
-        id: 'portal_autoservicio',
-        name: 'Portal Autoservicio Web',
-        desc: 'Canal omnicanal para autogestión de clientes',
-        ingredients: ['auth_sso', 'ui_components', 'push_notify'],
-        points: 140
+        id: 'checkout_seguro',
+        name: 'Checkout Seguro con Topes',
+        desc: 'Flujo transaccional regulado con filtros de seguridad y límites por perfil',
+        ingredients: ['security_filters', 'topes', 'auth_widget'],
+        points: 170
     },
     {
-        id: 'checkout_1click',
-        name: 'Checkout Rápido 1-Clic',
-        desc: 'Flujo de conversión inmediata sin fricción',
-        ingredients: ['pay_gateway', 'auth_sso', 'analytics'],
-        points: 160
+        id: 'ecosistema_federado',
+        name: 'Ecosistema Federado & MCP',
+        desc: 'Malla federada de microservicios con enrutadores y MCP - BDS',
+        ingredients: ['federation', 'mcp_bds', 'dist_routers'],
+        points: 190
     },
     {
-        id: 'onboarding_firma',
-        name: 'Onboarding con Firma Digital',
-        desc: 'Apertura de cuentas 100% digital en minutos',
-        ingredients: ['auth_sso', 'doc_sign', 'ui_components'],
+        id: 'plataforma_lowcode',
+        name: 'Plataforma LowCode & Flujo Asíncrono',
+        desc: 'Desarrollo acelerado conectado a modelo de información y datos async',
+        ingredients: ['lowcode', 'info_model', 'async_dataflow'],
         points: 180
     },
     {
-        id: 'superapp_ai',
-        name: 'SuperApp con Asistente IA',
-        desc: 'Experiencia hiper-personalizada con recomendaciones',
-        ingredients: ['ai_recommender', 'db_sync', 'push_notify', 'auth_sso'],
-        points: 240
+        id: 'suite_operaciones',
+        name: 'Operaciones & Carga de Lotes',
+        desc: 'Procesamiento masivo transaccional con MACD y soporte continuo',
+        ingredients: ['batch_loading', 'macd', 'support'],
+        points: 175
     },
     {
-        id: 'centro_notif',
-        name: 'Centro de Alertas & Notificaciones',
-        desc: 'Monitoreo de seguridad y avisos en tiempo real',
-        ingredients: ['push_notify', 'analytics', 'db_sync'],
-        points: 150
+        id: 'analitica_metricas',
+        name: 'Dashboard de Métricas & Tagueo',
+        desc: 'Monitoreo de telemetría y eventos en tiempo real para experiencias digitales',
+        ingredients: ['tagging', 'metrics', 'digital_exp'],
+        points: 165
+    },
+    {
+        id: 'canal_distribuido',
+        name: 'Canal Distribuido de Alta Disponibilidad',
+        desc: 'Enrutamiento elástico con flujos async, filtros de seguridad y UI dinámica',
+        ingredients: ['dist_routers', 'async_dataflow', 'security_filters', 'backend_driven_ui'],
+        points: 230
     }
 ];
 
@@ -167,9 +193,9 @@ class Game {
 
         // Interactividad Paso 2: Plato de pruebas
         const demoItems = [
-            { btnId: 'tut-demo-btn-1', id: 'auth', name: '🔐 Auth & Biometría' },
-            { btnId: 'tut-demo-btn-2', id: 'pay', name: '💳 Pasarela de Pagos' },
-            { btnId: 'tut-demo-btn-3', id: 'ui', name: '🎨 UI Kit Accesible' }
+            { btnId: 'tut-demo-btn-1', id: 'mobile_widgets', name: '📱 Widgets mobile' },
+            { btnId: 'tut-demo-btn-2', id: 'auth_widget', name: '🔐 Widget de Autenticación' },
+            { btnId: 'tut-demo-btn-3', id: 'design_system', name: '🎨 Sistema de diseño' }
         ];
 
         demoItems.forEach(item => {
