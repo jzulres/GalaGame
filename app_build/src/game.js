@@ -143,7 +143,7 @@ class Game {
     constructor() {
         this.score = 0;
         this.phase = 1; // 1 = Sin Galatea, 2 = Con Galatea
-        this.phaseTimer = 30;
+        this.phaseTimer = 25;
         this.timerInterval = null;
         this.activeOrders = [];
         this.currentOrder = null;
@@ -156,7 +156,11 @@ class Game {
             phase1TimeSum: 0,
             phase2Delivered: 0,
             phase2TimeSum: 0,
-            manualClicks: 0
+            manualClicks: 0,
+            wrongClicksPhase1: 0,
+            wrongClicksPhase2: 0,
+            phase1Score: 0,
+            phase2Score: 0
         };
 
         // Estado de ingredientes rebeldes en fase 1
@@ -183,6 +187,9 @@ class Game {
         // Paneles de preparación
         this.chaoticKitchenEl = document.getElementById('chaotic-kitchen');
         this.chaoticArenaEl = document.getElementById('chaotic-arena');
+        if (this.chaoticArenaEl) {
+            this.chaoticArenaEl.addEventListener('click', () => this.handleChaosMissClick());
+        }
         this.fridgeContainerEl = document.getElementById('fridge-container');
         this.fridgeUnitEl = document.getElementById('fridge-unit');
         this.pantryGridEl = document.getElementById('pantry-grid');
@@ -355,7 +362,11 @@ class Game {
             phase1TimeSum: 0,
             phase2Delivered: 0,
             phase2TimeSum: 0,
-            manualClicks: 0
+            manualClicks: 0,
+            wrongClicksPhase1: 0,
+            wrongClicksPhase2: 0,
+            phase1Score: 0,
+            phase2Score: 0
         };
 
         this.updateHUD();
@@ -364,7 +375,7 @@ class Game {
         this.spawnOrder();
         this.spawnOrder();
 
-        this.startTimer(30, () => this.endPhase1());
+        this.startTimer(25, () => this.endPhase1());
     }
 
     startTimer(seconds, onComplete) {
@@ -482,7 +493,7 @@ class Game {
         this.stats.manualClicks++;
         this.rogueProgress[ingKey] = (this.rogueProgress[ingKey] || 0) + 35;
 
-        const msgs = ['⚠️ ¡Comprando de nuevo!', '🏃‍♂️ ¡Se movió rápido!', '🐌 ¡Reinventando código!'];
+        const msgs = ['🏃‍♂️ ¡Casi lo atrapas!', '🐌 ¡Sigue persiguiendo!', '⚠️ ¡Un poco más!'];
         const randomMsg = msgs[Math.floor(Math.random() * msgs.length)];
         this.showFloatingText(randomMsg, '#f87171');
 
@@ -506,6 +517,16 @@ class Game {
         }
 
         this.renderPlate();
+    }
+
+    handleChaosMissClick() {
+        if (this.phase !== 1) return;
+        window.soundFX.playError();
+        this.stats.wrongClicksPhase1++;
+        this.score = Math.max(0, this.score - 10);
+        this.stats.phase1Score = Math.max(0, this.stats.phase1Score - 10);
+        this.updateHUD();
+        this.showFloatingText('❌ -10 pts: ¡Clic fuera de objetivo!', '#ef4444');
     }
 
     /* Renderizar despensa para Fase 2 */
@@ -541,7 +562,11 @@ class Game {
             }
         } else {
             window.soundFX.playError();
-            this.showFloatingText('❌ Este canal no requiere esa capacidad', '#ef4444');
+            this.stats.wrongClicksPhase2++;
+            this.score = Math.max(0, this.score - 10);
+            this.stats.phase2Score = Math.max(0, this.stats.phase2Score - 10);
+            this.updateHUD();
+            this.showFloatingText('❌ -10 pts: Este canal no requiere esa capacidad', '#ef4444');
         }
     }
 
@@ -597,7 +622,7 @@ class Game {
             ticket.innerHTML = `
                 <div class="order-header">
                     <div class="order-name">${order.name}</div>
-                    <div class="order-points">+${order.points} pts</div>
+                    <div class="order-points">+200 pts</div>
                 </div>
                 <div class="order-ingredients-needed">
                     ${order.ingredients.map(ingId => `
@@ -643,18 +668,19 @@ class Game {
         if (!this.canServe()) return;
 
         const timeTaken = (Date.now() - this.currentOrder.createdTime) / 1000;
-        let pointsEarned = this.currentOrder.points;
+        const pointsEarned = 200;
 
         if (this.phase === 1) {
             this.stats.phase1Delivered++;
             this.stats.phase1TimeSum += timeTaken;
+            this.stats.phase1Score += pointsEarned;
             window.soundFX.playServe();
             this.showFloatingText(`+${pointsEarned} pts (¡Con sudor y demora!)`, '#ffb703');
         } else {
             this.stats.phase2Delivered++;
             this.stats.phase2TimeSum += timeTaken;
             this.combo++;
-            pointsEarned = Math.round(pointsEarned * (1 + (this.combo * 0.25)));
+            this.stats.phase2Score += pointsEarned;
             window.soundFX.playServe();
             window.soundFX.playCombo();
             this.showFloatingText(`🚀 ¡SERVIDO! +${pointsEarned} pts (Combo x${this.combo})`, '#00e5ff');
@@ -741,8 +767,8 @@ class Game {
             this.spawnOrder();
         }
 
-        // 45 segundos para alta velocidad
-        this.startTimer(45, () => this.endGame());
+        // 25 segundos para alta velocidad
+        this.startTimer(25, () => this.endGame());
     }
 
     endGame() {
@@ -761,12 +787,20 @@ class Game {
             : '3.2';
 
         document.getElementById('final-score-val').textContent = this.score;
+        document.getElementById('metric-p1-score').textContent = `${this.stats.phase1Score} pts`;
+        document.getElementById('metric-p2-score').textContent = `${this.stats.phase2Score} pts`;
         document.getElementById('metric-p1-delivered').textContent = `${this.stats.phase1Delivered} canales`;
         document.getElementById('metric-p2-delivered').textContent = `${this.stats.phase2Delivered} canales`;
         document.getElementById('metric-p1-time').textContent = `${avgTimeP1} seg / canal`;
         document.getElementById('metric-p2-time').textContent = `${avgTimeP2} seg / canal`;
-        document.getElementById('metric-p1-waste').textContent = `${Math.min(95, 50 + this.stats.manualClicks * 3)}% (Alto)`;
-        document.getElementById('metric-p2-waste').textContent = `0% (100% Sostenible)`;
+        const p1WastePct = Math.min(95, this.stats.wrongClicksPhase1 * 8);
+        document.getElementById('metric-p1-waste').textContent = this.stats.wrongClicksPhase1 > 0
+            ? `${p1WastePct}% (Clics fallidos)`
+            : `0% (100% Sostenible)`;
+        const p2WastePct = Math.min(95, this.stats.wrongClicksPhase2 * 8);
+        document.getElementById('metric-p2-waste').textContent = this.stats.wrongClicksPhase2 > 0
+            ? `${p2WastePct}% (Clics fallidos)`
+            : `0% (100% Sostenible)`;
 
         this.gameOverModal.classList.remove('hidden');
         document.getElementById('save-score-btn').disabled = false;

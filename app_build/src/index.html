@@ -19,7 +19,7 @@
         <div class="hud-stats">
             <div class="stat-box">
                 <div class="stat-label">Tiempo</div>
-                <div id="timer-val" class="stat-val">30s</div>
+                <div id="timer-val" class="stat-val">25s</div>
             </div>
             <div class="stat-box">
                 <div class="stat-label">Puntaje</div>
@@ -189,7 +189,7 @@
                     <div class="tut-mock-ticket">
                         <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:0.95rem; color:var(--accent-gold);">
                             <span>📱 Mi Bancolombia</span>
-                            <span style="color:var(--accent-green);">+220 pts</span>
+                            <span style="color:var(--accent-green);">+200 pts</span>
                         </div>
                         <div style="font-size:0.75rem; color:#94a3b8; margin: 0.35rem 0;">Tiempo comanda: 30s</div>
                         <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:0.4rem;">
@@ -293,6 +293,10 @@
                 <div class="comparison-card bad">
                     <h3 style="color: #fca5a5; font-size: 0.9rem; margin-bottom: 0.75rem;">🔴 Sin Galatea (Caótico)</h3>
                     <div class="comp-metric">
+                        <div class="comp-label">Puntaje de la Fase:</div>
+                        <div id="metric-p1-score" class="comp-val red">0</div>
+                    </div>
+                    <div class="comp-metric">
                         <div class="comp-label">Canales Entregados:</div>
                         <div id="metric-p1-delivered" class="comp-val red">0</div>
                     </div>
@@ -308,6 +312,10 @@
 
                 <div class="comparison-card good">
                     <h3 style="color: #6ee7b7; font-size: 0.9rem; margin-bottom: 0.75rem;">🟢 Despensa Galatea</h3>
+                    <div class="comp-metric">
+                        <div class="comp-label">Puntaje de la Fase:</div>
+                        <div id="metric-p2-score" class="comp-val green">0</div>
+                    </div>
                     <div class="comp-metric">
                         <div class="comp-label">Canales Entregados:</div>
                         <div id="metric-p2-delivered" class="comp-val green">0</div>
