@@ -1282,4 +1282,178 @@ main {
     border-color: rgba(255, 255, 255, 0.35);
 }
 
+/* ==========================================================================
+   Responsive Mobile (teléfonos ~320px–640px de ancho lógico)
+   ========================================================================== */
+@media (max-width: 640px) {
+    header {
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        padding: 0.6rem 0.8rem;
+    }
+
+    .brand {
+        gap: 0.5rem;
+    }
+
+    .chef-hat {
+        font-size: 1.5rem;
+    }
+
+    .brand-title {
+        font-size: 1.1rem;
+        letter-spacing: 0.5px;
+    }
+
+    .phase-pill {
+        font-size: 0.72rem;
+        padding: 0.35rem 0.8rem;
+    }
+
+    .hud-stats {
+        gap: 0.6rem;
+        flex-wrap: wrap;
+    }
+
+    .stat-box {
+        min-width: 68px;
+        padding: 0.3rem 0.6rem;
+    }
+
+    .stat-val {
+        font-size: 1.1rem;
+    }
+
+    main {
+        padding: 0.6rem;
+        gap: 0.8rem;
+    }
+
+    .ticket-rail-wrapper {
+        padding: 0.5rem 0.6rem 0.7rem;
+    }
+
+    .order-ticket {
+        min-width: 210px;
+        padding: 0.7rem;
+    }
+
+    .prep-board,
+    .chaotic-kitchen-panel,
+    .fridge-container {
+        padding: 0.85rem;
+        border-radius: 14px;
+    }
+
+    .cutting-board {
+        width: 100%;
+        padding: 0.9rem;
+    }
+
+    .dish-icon {
+        font-size: 2.4rem;
+    }
+
+    .serve-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 0.85rem 1.2rem;
+        font-size: 1rem;
+    }
+
+    .chaotic-arena {
+        min-height: 300px;
+    }
+
+    .rogue-ingredient {
+        width: 120px;
+        padding: 0.5rem;
+    }
+
+    .rogue-icon {
+        font-size: 1.5rem;
+    }
+
+    .fridge-unit {
+        min-height: 320px;
+    }
+
+    .pantry-grid {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 0.5rem;
+    }
+
+    .pantry-item {
+        padding: 0.55rem 0.4rem;
+    }
+
+    .pantry-icon {
+        font-size: 1.5rem;
+    }
+
+    .modal-overlay {
+        padding: 0.8rem;
+    }
+
+    .modal-content {
+        padding: 1.4rem 1.1rem;
+        border-radius: 16px;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+    }
+
+    .modal-text {
+        font-size: 0.9rem;
+    }
+
+    .principles-banner {
+        gap: 0.5rem;
+    }
+
+    .principle-box {
+        padding: 0.65rem 0.35rem;
+    }
+
+    .comparison-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tutorial-content {
+        padding: 1.3rem 1rem;
+    }
+
+    .tutorial-tabs {
+        gap: 0.3rem;
+    }
+
+    .tut-tab {
+        font-size: 0.7rem;
+        padding: 0.55rem 0.25rem;
+    }
+
+    .tutorial-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.6rem;
+    }
+
+    .tutorial-actions > div {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .tutorial-actions > div button {
+        width: 100%;
+    }
+
+    .player-input-wrap {
+        flex-direction: column;
+    }
+
+    .player-input-wrap .primary-btn {
+        width: 100% !important;
+    }
+}
 
