@@ -6,13 +6,13 @@ const INGREDIENTS = {
     mobile_widgets: { id: 'mobile_widgets', name: 'Widgets mobile', icon: '📱', cat: 'Mobile' },
     tagging: { id: 'tagging', name: 'Tagueo', icon: '🏷️', cat: 'Analítica' },
     qr_reader: { id: 'qr_reader', name: 'Lectura de QR', icon: '📷', cat: 'Mobile' },
-    zeroheight: { id: 'zeroheight', name: 'ZeroHeight', icon: '📐', cat: 'Diseño' },
+    web_widgets: { id: 'web_widgets', name: 'Widgets Web', icon: '🖥️', cat: 'Diseño' },
     lowcode: { id: 'lowcode', name: 'LowCode', icon: '🧩', cat: 'Desarrollo' },
     mcp_bds: { id: 'mcp_bds', name: 'MCP - BDS', icon: '🔌', cat: 'Integración' },
     macd: { id: 'macd', name: 'MACD', icon: '⚙️', cat: 'Operaciones' },
     info_model: { id: 'info_model', name: 'Modelo información', icon: '🗂️', cat: 'Datos' },
-    digital_exp: { id: 'digital_exp', name: 'Expériencias digitales', icon: '✨', cat: 'Experiencia' },
-    metrics: { id: 'metrics', name: 'Metricas', icon: '📊', cat: 'Telemetría' },
+    digital_exp: { id: 'digital_exp', name: 'Experiencias digitales', icon: '✨', cat: 'Experiencia' },
+    metrics: { id: 'metrics', name: 'Métricas', icon: '📊', cat: 'Telemetría' },
     support: { id: 'support', name: 'Soporte', icon: '🎧', cat: 'Soporte' },
     federation: { id: 'federation', name: 'Federación', icon: '🌐', cat: 'Arquitectura' },
     security_filters: { id: 'security_filters', name: 'Security Filters', icon: '🛡️', cat: 'Seguridad' },
@@ -26,60 +26,116 @@ const INGREDIENTS = {
 
 const RECIPES = [
     {
-        id: 'app_movil_bdui',
-        name: 'App Móvil Dinámica (BDUI)',
-        desc: 'Canal móvil de alto rendimiento con renderizado desde backend y autenticación',
+        id: 'mi_bancolombia',
+        name: 'Mi Bancolombia',
+        desc: 'Súper App insignia con widgets móviles, autenticación y lectura de QR',
         ingredients: ['mobile_widgets', 'backend_driven_ui', 'auth_widget', 'qr_reader'],
-        points: 210
+        points: 220
     },
     {
-        id: 'portal_digital',
-        name: 'Portal de Expériencias Digitales',
-        desc: 'Canal corporativo omnicanal con sistema de diseño unificado y ZeroHeight',
-        ingredients: ['digital_exp', 'design_system', 'zeroheight'],
+        id: 'sv_personas',
+        name: 'SV Personas',
+        desc: 'Portal transaccional para personas con sistema de diseño unificado y Widgets Web',
+        ingredients: ['design_system', 'digital_exp', 'web_widgets'],
         points: 150
     },
     {
-        id: 'checkout_seguro',
-        name: 'Checkout Seguro con Topes',
-        desc: 'Flujo transaccional regulado con filtros de seguridad y límites por perfil',
+        id: 'sv_negocios',
+        name: 'SV Negocios',
+        desc: 'Sucursal virtual empresarial con filtros de seguridad y autenticación',
         ingredients: ['security_filters', 'topes', 'auth_widget'],
-        points: 170
+        points: 175
     },
     {
-        id: 'ecosistema_federado',
-        name: 'Ecosistema Federado & MCP',
-        desc: 'Malla federada de microservicios con enrutadores y MCP - BDS',
-        ingredients: ['federation', 'mcp_bds', 'dist_routers'],
-        points: 190
+        id: 'app_negocios',
+        name: 'App Negocios',
+        desc: 'Canal móvil empresarial con renderizado dinámico y seguridad reforzada',
+        ingredients: ['mobile_widgets', 'backend_driven_ui', 'security_filters'],
+        points: 200
     },
     {
-        id: 'plataforma_lowcode',
-        name: 'Plataforma LowCode & Flujo Asíncrono',
-        desc: 'Desarrollo acelerado conectado a modelo de información y datos async',
-        ingredients: ['lowcode', 'info_model', 'async_dataflow'],
-        points: 180
-    },
-    {
-        id: 'suite_operaciones',
-        name: 'Operaciones & Carga de Lotes',
-        desc: 'Procesamiento masivo transaccional con MACD y soporte continuo',
+        id: 'gestor_transaccional',
+        name: 'Gestor Transaccional (A Dist.)',
+        desc: 'Procesamiento masivo de operaciones a distancia con soporte continuo',
         ingredients: ['batch_loading', 'macd', 'support'],
         points: 175
     },
     {
-        id: 'analitica_metricas',
-        name: 'Dashboard de Métricas & Tagueo',
-        desc: 'Monitoreo de telemetría y eventos en tiempo real para experiencias digitales',
-        ingredients: ['tagging', 'metrics', 'digital_exp'],
+        id: 'tabot',
+        name: 'Tabot (IA -A Dist)',
+        desc: 'Asistente conversacional inteligente conectado a flujos de datos async',
+        ingredients: ['lowcode', 'info_model', 'async_dataflow'],
+        points: 190
+    },
+    {
+        id: 'kioskos',
+        name: 'Kioskos (Suc Físicas)',
+        desc: 'Terminales de autoservicio en sucursal con lectura de QR y soporte',
+        ingredients: ['qr_reader', 'design_system', 'support'],
+        points: 140
+    },
+    {
+        id: 'cb_suc_fisicas',
+        name: 'CB (Suc Físicas)',
+        desc: 'Corresponsal bancario con límites regulados y procesamiento por lotes',
+        ingredients: ['topes', 'security_filters', 'batch_loading'],
+        points: 160
+    },
+    {
+        id: 'app_inversiones',
+        name: 'App Inversiones',
+        desc: 'Canal de inversión con métricas en tiempo real y experiencias digitales',
+        ingredients: ['metrics', 'tagging', 'digital_exp'],
         points: 165
     },
     {
-        id: 'canal_distribuido',
-        name: 'Canal Distribuido de Alta Disponibilidad',
-        desc: 'Enrutamiento elástico con flujos async, filtros de seguridad y UI dinámica',
-        ingredients: ['dist_routers', 'async_dataflow', 'security_filters', 'backend_driven_ui'],
-        points: 230
+        id: 'sv_leasing',
+        name: 'SV Leasing',
+        desc: 'Portal federado de leasing conectado vía MCP y enrutadores distribuidos',
+        ingredients: ['federation', 'mcp_bds', 'dist_routers'],
+        points: 190
+    },
+    {
+        id: 'sv_sufi',
+        name: 'SV Sufi',
+        desc: 'Plataforma de financiamiento con desarrollo acelerado y operaciones MACD',
+        ingredients: ['lowcode', 'macd', 'info_model'],
+        points: 180
+    },
+    {
+        id: 'fiduciaria',
+        name: 'Fiduciaria (SV Negocios)',
+        desc: 'Gestión fiduciaria segura con autenticación y métricas de control',
+        ingredients: ['security_filters', 'auth_widget', 'metrics'],
+        points: 170
+    },
+    {
+        id: 'tu360',
+        name: 'Tu360',
+        desc: 'Vista unificada del cliente con modelo de información y arquitectura federada',
+        ingredients: ['info_model', 'metrics', 'federation'],
+        points: 185
+    },
+    {
+        id: 'ventas_digitales',
+        name: 'Ventas Digitales',
+        desc: 'Canal de ventas con experiencias digitales, diseño y tagueo',
+        ingredients: ['digital_exp', 'design_system', 'tagging'],
+        points: 155
+    },
+    {
+        id: 'portal_contenido',
+        name: 'Portal de Contenido',
+        desc: 'Portal editorial con Widgets Web, sistema de diseño y experiencias digitales',
+        ingredients: ['web_widgets', 'design_system', 'digital_exp'],
+        points: 145
+    },
+    {
+        id: 'ciam',
+        name: 'CIAM',
+        desc: 'Gestión centralizada de identidad y acceso de clientes con arquitectura federada',
+        ingredients: ['auth_widget', 'security_filters', 'federation'],
+        points: 195
     }
 ];
 
